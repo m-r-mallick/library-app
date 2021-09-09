@@ -216,10 +216,7 @@ const UpdateAuthor = ({ id, author }) => {
          <Icon
             icon="pencil"
             className="btn btn-secondary btn-sm m-2 rs-btn-subtle"
-            onClick={() => {
-               open();
-               onClickUpdate();
-            }}
+            onClick={open}
          />
          <Modal show={isOpen} onHide={close}>
             <Modal.Header>
