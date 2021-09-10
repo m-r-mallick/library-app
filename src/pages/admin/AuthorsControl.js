@@ -139,6 +139,7 @@ const AddNewAuthor = ({ profile }) => {
                   onChange={onFormChange}
                   formValue={formValue}
                   model={model}
+                  fluid
                >
                   <FormGroup className="mb-3">
                      <ControlLabel>Name</ControlLabel>
@@ -146,10 +147,19 @@ const AddNewAuthor = ({ profile }) => {
                   </FormGroup>
                   <FormGroup>
                      <ControlLabel>Description</ControlLabel>
-                     <FormControl id="description" name="description" />
+                     <FormControl
+                        id="description"
+                        name="description"
+                        rows={5}
+                        componentClass="textarea"
+                     />
                   </FormGroup>
 
-                  <Button appearance="primary" onClick={onFormSubmit}>
+                  <Button
+                     appearance="primary"
+                     onClick={onFormSubmit}
+                     style={{ float: "right" }}
+                  >
                      Add
                   </Button>
                </Form>
@@ -157,9 +167,11 @@ const AddNewAuthor = ({ profile }) => {
             <Modal.Footer>
                <Button
                   onClick={close}
-                  appearance="block"
+                  appearance="primary"
+                  block
+                  color="red"
                   ripple
-                  className="btn btn-danger m-1"
+                  className="m-1"
                >
                   Close
                </Button>
@@ -228,6 +240,7 @@ const UpdateAuthor = ({ id, author }) => {
                   onChange={onFormChange}
                   formValue={updatedFormValue}
                   model={model}
+                  fluid
                >
                   <FormGroup className="mb-3">
                      <ControlLabel>Name</ControlLabel>
@@ -235,10 +248,19 @@ const UpdateAuthor = ({ id, author }) => {
                   </FormGroup>
                   <FormGroup>
                      <ControlLabel>Description</ControlLabel>
-                     <FormControl id="description" name="description" />
+                     <FormControl
+                        id="description"
+                        name="description"
+                        rows={5}
+                        componentClass="textarea"
+                     />
                   </FormGroup>
 
-                  <Button appearance="primary" onClick={onClickUpdate}>
+                  <Button
+                     appearance="primary"
+                     onClick={onClickUpdate}
+                     style={{ float: "right" }}
+                  >
                      Update
                   </Button>
                </Form>
@@ -246,7 +268,8 @@ const UpdateAuthor = ({ id, author }) => {
             <Modal.Footer>
                <Button
                   onClick={close}
-                  appearance="block"
+                  appearance="primary"
+                  block
                   ripple
                   className="btn btn-danger m-1"
                >
@@ -261,7 +284,7 @@ const UpdateAuthor = ({ id, author }) => {
 const DeleteAuthor = ({ id, author }) => {
    const { profile } = useProfile();
    const onClickDelete = async () => {
-      const confirm = window.confirm("Confirm Delete?");
+      const confirm = window.confirm(`Delete ${author.name}?`);
 
       if (!confirm) {
          return;
@@ -312,7 +335,7 @@ const AuthorsControl = () => {
          <AdminNavBar profile={profile} onSignOut={onSignOut} />
          <h1 className="text-center">
             Authors Control{" "}
-            <div style={{ float: "right" }}>
+            <div style={{ float: "right" }} className="m-2">
                {profile.user && <AddNewAuthor profile={profile} />}
             </div>
          </h1>
