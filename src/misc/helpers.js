@@ -52,6 +52,18 @@ export async function getAllAuthors(username, password) {
    return authorsData;
 }
 
+export async function getAllBookItems(username, password) {
+   const res = await fetch(`http://localhost:9000/api/v1/copies/`, {
+      method: "GET",
+      headers: {
+         username: username,
+         password: password,
+      },
+   });
+   const bookItemsData = await res.json();
+   return bookItemsData;
+}
+
 export async function getAuthorById(id, username, password) {
    const res = await fetch(`http://localhost:9000/api/v1/authors/${id}`, {
       method: "GET",
