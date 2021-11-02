@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { Button, Dropdown, Icon, Modal, Nav, Navbar } from "rsuite";
 import { useModalState } from "../misc/custom-hooks";
+import ProfileDisplay from "./ProfileDisplay";
 
 const MyLink = ({ to, children, ...restProps }) => {
    return (
@@ -86,7 +87,8 @@ const ProfileModal = ({ profile, isOpen, close }) => {
             <Modal.Title>{profile.user.username}</Modal.Title>
          </Modal.Header>
          <Modal.Body>
-            <pre>{JSON.stringify(profile, undefined, 2)}</pre>
+            {/* <pre>{JSON.stringify(profile, undefined, 2)}</pre> */}
+            <ProfileDisplay />
          </Modal.Body>
          <Modal.Footer>
             <Button appearance="primary" onClick={close}>

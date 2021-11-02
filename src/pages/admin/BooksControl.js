@@ -417,7 +417,7 @@ const DeleteBook = ({ isbn, book }) => {
 const BooksDisplay = ({ books }) => {
    return (
       <>
-         <table className="table table-hover text-center mt-2">
+         <table className="table table-hover table-bordered text-center mt-2">
             <thead>
                <tr key={"header"}>
                   {Object.keys(books[0]).map((key, index) => (

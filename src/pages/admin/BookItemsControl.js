@@ -147,7 +147,7 @@ const AddNewBookItem = () => {
       <>
          <div className="text-center">
             <Button appearance="subtle" color="green" ripple onClick={open}>
-               <Icon icon="plus" />
+               <Icon icon="plus" className="m-1" />
                Add New Copy
             </Button>
          </div>
@@ -448,7 +448,7 @@ const DeleteBookItem = ({ barcode }) => {
 const BookItemsDisplay = ({ bookItems }) => {
    return (
       <React.Fragment>
-         <table className="table table-hover text-center mt-2">
+         <table className="table table-hover tbale-bordered text-center mt-2">
             <thead>
                <tr key={"header"}>
                   {Object.keys(bookItems[0]).map((key, index) => (
@@ -544,10 +544,10 @@ const BookItemsControl = () => {
          .catch("fetching book items...");
    }, [profile]);
 
-   console.log(`bookItems`, bookItems);
    const onSignOut = () => {
       dispatch({ type: "LOGOUT_ATTEMPT" });
    };
+
    return (
       <div>
          <AdminNavBar profile={profile} onSignOut={onSignOut} />

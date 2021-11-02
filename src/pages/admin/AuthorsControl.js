@@ -29,7 +29,7 @@ const model = Schema.Model({
 const AuthorsDisplay = ({ authors }) => {
    const tabularView = (
       <>
-         <table className="table table-hover text-center mt-2">
+         <table className="table table-hover table-bordered text-center mt-2">
             <thead>
                <tr key={"header"}>
                   {Object.keys(authors[0]).map((key, index) => (

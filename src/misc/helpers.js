@@ -1,18 +1,3 @@
-export async function refreshUserProfile({ username, password }) {
-   const res = await fetch(
-      "http://localhost:9000/management/api/v1/accounts/",
-      {
-         method: "GET",
-         headers: {
-            username: username,
-            password: password,
-         },
-      }
-   );
-   const data = await res.json();
-   return data;
-}
-
 export async function getRoles(username, password, uid) {
    const res = await fetch(
       `http://localhost:9000/management/api/v1/accounts/getRoles/${uid}`,
@@ -64,6 +49,33 @@ export async function getAllBookItems(username, password) {
    return bookItemsData;
 }
 
+export async function getAllUsers(username, password) {
+   const res = await fetch(
+      `http://localhost:9000/management/api/v1/accounts/`,
+      {
+         method: "GET",
+         headers: {
+            username,
+            password,
+         },
+      }
+   );
+   const usersData = await res.json();
+   return usersData;
+}
+
+export async function getAllRoles(username, password) {
+   const res = await fetch(`http://localhost:9000/management/api/v1/roles/`, {
+      method: "GET",
+      headers: {
+         username,
+         password,
+      },
+   });
+   const rolesData = await res.json();
+   return rolesData;
+}
+
 export async function getAuthorById(id, username, password) {
    const res = await fetch(`http://localhost:9000/api/v1/authors/${id}`, {
       method: "GET",
@@ -74,6 +86,21 @@ export async function getAuthorById(id, username, password) {
    });
    const authorData = await res.json();
    return authorData;
+}
+
+export async function getRoleById(username, password, roleId) {
+   const res = await fetch(
+      `http://localhost:9000/management/api/v1/roles/${roleId}`,
+      {
+         method: "GET",
+         headers: {
+            username,
+            password,
+         },
+      }
+   );
+   const roleData = await res.json();
+   return roleData;
 }
 
 export function formatDate(date) {

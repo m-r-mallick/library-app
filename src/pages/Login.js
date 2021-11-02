@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
    Button,
    ButtonToolbar,
@@ -24,12 +24,10 @@ const INITIAL_FORM = {
 const Login = () => {
    const [formValue, setFormValue] = useState(INITIAL_FORM);
    const formRef = useRef();
+   const rememberMeRef = useRef();
    const { dispatch } = useProfile();
 
-   const onFormChange = (value) => {
-      setFormValue(value);
-   };
-
+   //eslint-disable-next-line
    const onSubmit = async () => {
       try {
          const res = await fetch(
@@ -37,21 +35,47 @@ const Login = () => {
             {
                method: "GET",
                headers: {
-                  username: formValue.username,
-                  password: formValue.password,
+                  username,
+                  password,
                },
             }
          );
          const data = await res.json();
-         const user = data.find((u) => u.username === formValue.username);
-         dispatch({
-            type: "LOGIN_ATTEMPT",
-            payload: { user: user, password: formValue.password },
-         });
+         const user = data.find((u) => u.username === username);
+
+         if (rememberMeRef.current.checked) {
+            dispatch({
+               type: "LOGIN_AND_REMEMBER_ATTEMPT",
+               payload: { user: user, password: password },
+            });
+         } else {
+            dispatch({
+               type: "LOGIN_ATTEMPT",
+               payload: { user: user, password: password },
+            });
+         }
       } catch (error) {
          console.log(`error here in login`, error);
       }
    };
+
+   useEffect(() => {
+      const username = localStorage.getItem("username");
+      const password = localStorage.getItem("password");
+
+      if (username && password) {
+         formValue.username = username;
+         formValue.password = password;
+         rememberMeRef.current.checked = true;
+         onSubmit().then();
+      }
+   }, [formValue, onSubmit]);
+
+   const onFormChange = (value) => {
+      setFormValue(value);
+   };
+
+   const { username, password } = formValue;
 
    return (
       <div className="text-center">
@@ -101,6 +125,15 @@ const Login = () => {
                   />
                </FormGroup>
                <FormGroup>
+                  <label>
+                     <b className="m-1">Remember Me</b>
+                     <input
+                        name="rememberMe"
+                        checked="true"
+                        ref={rememberMeRef}
+                        type="checkbox"
+                     />
+                  </label>
                   <ButtonToolbar style={{ fontFamily: "monospace" }}>
                      <Button
                         appearance="primary"
@@ -108,9 +141,6 @@ const Login = () => {
                         className="m-1"
                      >
                         Log In
-                     </Button>
-                     <Button appearance="default" color="green" className="m-1">
-                        Sign Up
                      </Button>
                   </ButtonToolbar>
                </FormGroup>
