@@ -52,7 +52,7 @@ const ProfileProvider = ({ children }) => {
       if (isProfileLoaded && !isRolesLoaded) {
          getRoles(profile.user.username, profile.password, profile.user.id)
             .then((res) => setRoles(res))
-            .catch(console.log(`somethingwrong...`));
+            .catch(() => console.log(`somethingwrong...`));
       }
       dispatch({ type: "SET_ROLES", payload: roles });
    }, [profile.user, profile.password, isProfileLoaded, isRolesLoaded, roles]);
